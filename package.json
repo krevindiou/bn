@@ -12,5 +12,11 @@
   "bugs": {
     "url": "https://github.com/krevindiou/bn/issues"
   },
-  "homepage": "https://github.com/krevindiou/bn#readme"
+  "homepage": "https://github.com/krevindiou/bn#readme",
+  "dependencies": {
+    "@nestjs/common": "^5.5.0",
+    "@nestjs/core": "^5.5.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.3.3"
+  }
 }
