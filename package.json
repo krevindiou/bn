@@ -1,0 +1,16 @@
+{
+  "name": "bn",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Error: no test specified' && exit 1"
+  },
+  "repository": "github:krevindiou/bn",
+  "author": "Arnaud B",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/krevindiou/bn/issues"
+  },
+  "homepage": "https://github.com/krevindiou/bn#readme"
+}
