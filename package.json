@@ -4,6 +4,8 @@
   "description": "",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start:dev": "nodemon",
+    "start:debug": "nodemon --config nodemon-debug.json",
     "prestart:prod": "rimraf dist && tsc",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -25,6 +27,7 @@
     "typescript": "^3.2.2"
   },
   "devDependencies": {
+    "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0",
     "tslint": "^5.12.0"
