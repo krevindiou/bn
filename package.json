@@ -2,8 +2,11 @@
   "name": "bn",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
+    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "prestart:prod": "rimraf dist && tsc",
+    "start:prod": "node dist/main.js",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
     "test": "echo 'Error: no test specified' && exit 1"
   },
   "repository": "github:krevindiou/bn",
@@ -17,6 +20,13 @@
     "@nestjs/common": "^5.5.0",
     "@nestjs/core": "^5.5.0",
     "reflect-metadata": "^0.1.12",
-    "rxjs": "^6.3.3"
+    "rimraf": "^2.6.2",
+    "rxjs": "^6.3.3",
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.7.0",
+    "tslint": "^5.12.0"
   }
 }
