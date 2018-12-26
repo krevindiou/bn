@@ -9,7 +9,10 @@
     "prestart:prod": "rimraf dist && tsc",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "echo 'Error: no test specified' && exit 1"
+    "test": "jest --config jest.config.json",
+    "test:watch": "jest --config jest.config.json --watch",
+    "test:cov": "jest --config jest.config.json --coverage",
+    "test:e2e": "jest --config test/jest-e2e.config.json"
   },
   "repository": "github:krevindiou/bn",
   "author": "Arnaud B",
@@ -21,13 +24,19 @@
   "dependencies": {
     "@nestjs/common": "^5.5.0",
     "@nestjs/core": "^5.5.0",
+    "@nestjs/testing": "^5.5.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
+    "supertest": "^3.3.0",
     "typescript": "^3.2.2"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/supertest": "^2.0.7",
+    "jest": "^23.6.0",
     "nodemon": "^1.18.9",
+    "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.7.0",
     "tslint": "^5.12.0"
