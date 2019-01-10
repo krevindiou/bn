@@ -10,5 +10,8 @@
     "transform": {
         "^.+\\.(t|j)s$": "ts-jest"
     },
+    "setupFiles": [
+        "reflect-metadata"
+    ],
     "coverageDirectory": "../coverage"
 }

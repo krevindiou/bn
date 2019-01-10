@@ -19,6 +19,14 @@ describe('AppController (e2e)', () => {
         return request(app.getHttpServer())
             .get('/')
             .expect(200)
-            .expect('Hello World!');
+            .expect('');
+    });
+
+    it('/login (POST)', () => {
+        return request(app.getHttpServer())
+            .post('/login')
+            .send({email: 'john@test.com', password: '123'})
+            .set('Accept', 'application/json')
+            .expect(201);
     });
 });
