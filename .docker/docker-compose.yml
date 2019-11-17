@@ -1,28 +1,43 @@
 version: "3"
 services:
     postgresql:
-        image: "postgres:11-alpine"
+        image: postgres:11-alpine
         container_name: bn-postgresql
         environment:
             POSTGRES_DB: bn
             POSTGRES_USER: bn
             POSTGRES_PASSWORD: 5Kn317rj1RJrVDaV
-    nginx:
-        image: "nginx:1-alpine"
-        container_name: bn-nginx
-        volumes:
-            - ./bn.nginx.conf:/etc/nginx/conf.d/default.conf
-        links:
-            - node
-        ports:
-            - "8000:80"
-    node:
-        image: bn-node
-        container_name: bn-node
+    api-node:
+        image: bn-api-node
+        container_name: bn-api-node
         build:
-            context: ..
-            dockerfile: .docker/node.dockerfile
+            context: ../api
+            dockerfile: ../.docker/api/Dockerfile
         volumes:
-            - ..:/opt/bn
+            - ../api:/opt/bn
+            - /opt/bn/node_modules/
         links:
             - postgresql
+        command: npm run start:dev
+    api-nginx:
+        image: nginx:1-alpine
+        container_name: bn-api-nginx
+        volumes:
+            - ./api/nginx.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - api-node
+        ports:
+            - 8080:80
+    www:
+        image: bn-www
+        container_name: bn-www
+        build:
+            context: ../www
+            dockerfile: ../.docker/www/Dockerfile
+        volumes:
+            - ./www/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ../www:/opt/bn
+            - /opt/bn/node_modules/
+        ports:
+            - 80:8080
+        command: npm run serve
