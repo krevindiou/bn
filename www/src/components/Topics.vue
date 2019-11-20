@@ -60,7 +60,7 @@ export default {
     methods: {
         async getTopics() {
             try {
-                const response = await axios.get('/v1/topics', {
+                const response = await axios.get('/topics', {
                     params: {
                         limit: this.nb,
                     },

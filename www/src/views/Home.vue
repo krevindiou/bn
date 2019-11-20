@@ -77,7 +77,7 @@ export default {
     methods: {
         async getAnnouncements() {
             try {
-                const response = await axios.get('/v1/announcements', {
+                const response = await axios.get('/announcements', {
                     params: {
                         createdAt: new Date().toISOString().substr(0, 10),
                     },
@@ -89,7 +89,7 @@ export default {
         },
         async getChatMessages() {
             try {
-                const response = await axios.get('/v1/chat-messages', {
+                const response = await axios.get('/chat-messages', {
                     params: {
                         limit: 5,
                     },

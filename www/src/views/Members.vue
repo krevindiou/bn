@@ -39,7 +39,7 @@ export default {
     methods: {
         async getMembers() {
             try {
-                const response = await axios.get('/v1/members');
+                const response = await axios.get('/members');
                 return response.data;
             } catch (error) {
                 console.log(error.response);

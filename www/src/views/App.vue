@@ -39,7 +39,7 @@ export default {
     methods: {
         async logout() {
             try {
-                await axios.post('/v1/logout');
+                await axios.post('/logout');
                 this.$session.destroy();
                 this.$router.push('/login');
             } catch (error) {
