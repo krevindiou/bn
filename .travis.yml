@@ -1,0 +1,11 @@
+services:
+  - docker
+install:
+  - make docker-up
+  - make docker-exec CONTAINER="api-node" COMMAND="npm install -g codecov"
+  - make docker-exec CONTAINER="api-node" COMMAND="sh -c 'apk update && apk add bash curl'"
+script:
+  - make docker-exec CONTAINER="api-node" COMMAND="npm run lint"
+  - make docker-exec CONTAINER="api-node" COMMAND="npm run test:cov"
+  - make docker-exec CONTAINER="api-node" COMMAND="npm run test:e2e"
+  - make docker-exec CONTAINER="$(wget https://codecov.io/env -O - -q | bash) api-node" COMMAND="sh -c 'wget https://codecov.io/bash -O - -q | bash'"
