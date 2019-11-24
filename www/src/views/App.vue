@@ -1,5 +1,8 @@
 <template>
     <body>
+        <div class="overlay">
+            <div class="wow">On revient bientôt !<br/><sub>enfin pas tout de suite non plus hein</sub></div>
+        </div>
         <nav>
             <ul class="container">
                 <li><router-link to="/"><i class="fas fa-home"/> {{ $t('website-title') }}</router-link></li>
