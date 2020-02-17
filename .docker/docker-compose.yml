@@ -1,12 +1,17 @@
 version: "3"
 services:
     postgresql:
-        image: postgres:11-alpine
+        image: bn-postgresql
         container_name: bn-postgresql
+        build:
+            context: ../api
+            dockerfile: ../.docker/db/Dockerfile
         environment:
             POSTGRES_DB: bn
             POSTGRES_USER: bn
             POSTGRES_PASSWORD: 5Kn317rj1RJrVDaV
+        volumes:
+            - ./db/tmp:/var/lib/postgresql/data
     api-node:
         image: bn-api-node
         container_name: bn-api-node
