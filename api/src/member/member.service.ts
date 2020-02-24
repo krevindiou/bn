@@ -8,7 +8,7 @@ export class MemberService {
         private readonly memberRepository: MemberRepository,
     ) {}
 
-    public login(credentials: Credentials): boolean {
+    public async login(credentials: Credentials): boolean {
         return this.memberRepository.login(credentials);
     }
 }

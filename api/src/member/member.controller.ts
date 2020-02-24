@@ -14,7 +14,7 @@ export class MemberController {
     ) {}
 
     @Post('/login')
-    public login(@Body() loginDto: LoginDto): boolean {
+    public async login(@Body() loginDto: LoginDto): boolean {
         return this.memberService.login(
             new Credentials(
                 new Email(loginDto.email),

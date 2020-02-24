@@ -6,7 +6,7 @@ import { Credentials } from './model/credentials';
 export class MemberRepository {
     constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
 
-    public login(credentials: Credentials): boolean {
+    public async login(credentials: Credentials): boolean {
         return credentials.email.value === 'john@example.net' && credentials.password.value === 'password123';
     }
 }
