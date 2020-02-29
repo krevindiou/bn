@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { LoginDto } from './login.dto';
 import { MemberService } from './member.service';
@@ -22,5 +22,10 @@ export class MemberController {
                 new Password(loginDto.password),
             ),
         );
+    }
+
+    @Get('/members')
+    public async members(): Promise<Member[]> {
+        return this.memberService.getAll();
     }
 }

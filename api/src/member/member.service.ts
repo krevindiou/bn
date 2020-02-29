@@ -17,5 +17,8 @@ export class MemberService {
             this.logger.log('Unable to login', error);
         }
     }
+
+    public async getAll(): Promise<Member[]> {
+        return this.memberRepository.getAll();
     }
 }
