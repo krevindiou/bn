@@ -16,7 +16,7 @@ describe('MemberController', () => {
                 {
                     provide: MemberRepository,
                     useFactory: () => ({
-                        login: jest.fn(() => { throw new Error })
+                        findByCredentials: jest.fn(() => { throw new Error })
                     }),
                 },
             ],

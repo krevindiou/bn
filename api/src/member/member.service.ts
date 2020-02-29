@@ -10,6 +10,6 @@ export class MemberService {
     ) {}
 
     public async login(credentials: Credentials): Promise<Member | undefined> {
-        return this.memberRepository.login(credentials);
+        return await this.memberRepository.findByCredentials(credentials);
     }
 }

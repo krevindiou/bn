@@ -1,5 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MASSIVE_CONNECTION } from '@nestjsplus/massive';
+import camelcaseKeys from 'camelcase-keys';
+import { plainToClass } from 'class-transformer';
+import * as crypto from 'crypto';
 import { Credentials } from './model/credentials';
 import { Member } from './model/member';
 
@@ -7,7 +10,24 @@ import { Member } from './model/member';
 export class MemberRepository {
     constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
 
-    public async login(credentials: Credentials): Promise<Member | undefined> {
-        return credentials.email.value === 'john@example.net' && credentials.password.value === 'password123';
+    public async findByCredentials(credentials: Credentials): Promise<Member> {
+        const hashedPassword = crypto
+            .createHash('md5')
+            .update(credentials.password.value)
+            .digest('hex');
+
+        let member = await this.db.member.findOne({
+            email: credentials.email.value,
+            password: hashedPassword,
+            deleted_at: null,
+        });
+
+        if (member === null) {
+            throw new Error('Member not found');
+        }
+
+        member = plainToClass(Member, camelcaseKeys(member));
+
+        return member;
     }
 }

@@ -29,6 +29,7 @@
     "@nestjs/swagger": "^3.1.0",
     "@nestjs/testing": "^6.10.1",
     "@nestjsplus/massive": "^1.2.0",
+    "camelcase-keys": "^6.1.1",
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "reflect-metadata": "^0.1.13",
