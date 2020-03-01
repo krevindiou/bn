@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { MemberController } from './member.controller';
 import { MemberRepository } from './member.repository';
@@ -5,15 +6,16 @@ import { MemberService } from './member.service';
 import { Credentials } from './model/credentials';
 import { Email } from './model/email';
 import { Password } from './model/password';
+import { Member } from './model/member';
 
 describe('MemberService', () => {
-    let memberController: MemberController;
     let memberRepository: MemberRepository;
     let memberService: MemberService;
 
     beforeAll(async () => {
         const memberModule = await Test.createTestingModule({
             providers: [
+                Logger,
                 MemberService,
                 {
                     provide: MemberRepository,
@@ -25,32 +27,27 @@ describe('MemberService', () => {
             controllers: [MemberController],
         }).compile();
 
-        memberController = memberModule.get<MemberController>(MemberController);
         memberRepository = memberModule.get<MemberRepository>(MemberRepository);
         memberService = memberModule.get<MemberService>(MemberService);
     });
 
     describe('login', () => {
         it('should succeed', () => {
-            jest.spyOn(memberRepository, 'login').mockImplementation(() => true);
+            const member = new Member();
+            member.email = new Email('john@example.net');
+            jest.spyOn(memberRepository, 'findByCredentials').mockImplementation(() => Promise.resolve(member));
 
-            const credentials = new Credentials(
-                new Email('john@example.net'),
-                new Password('password123'),
-            );
-
-            expect(memberService.login(credentials)).toBe(true);
+            const credentials = new Credentials(new Email('john@example.net'), new Password('password123'));
+            expect(memberService.login(credentials)).toStrictEqual(Promise.resolve(member));
         });
 
         it('should fail', () => {
-            jest.spyOn(memberRepository, 'login').mockImplementation(() => false);
+            jest.spyOn(memberRepository, 'findByCredentials').mockImplementation(() => {
+                throw new Error('Member not found');
+            });
 
-            const credentials = new Credentials(
-                new Email('john@example.net'),
-                new Password('password1234'),
-            );
-
-            expect(memberService.login(credentials)).toBe(false);
+            const credentials = new Credentials(new Email('john@example.net'), new Password('password123'));
+            expect(memberService.login(credentials)).toStrictEqual(Promise.resolve(undefined));
         });
     });
 });

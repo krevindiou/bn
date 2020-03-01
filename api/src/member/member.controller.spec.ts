@@ -1,17 +1,20 @@
+import { Logger } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { MemberController } from './member.controller';
 import { MemberService } from './member.service';
 import { MemberRepository } from './member.repository';
+import { Email } from './model/email';
+import { Member } from './model/member';
 import { LoginDto } from './login.dto';
 
 describe('MemberController', () => {
     let memberController: MemberController;
-    let memberRepository: MemberRepository;
     let memberService: MemberService;
 
     beforeAll(async () => {
         const memberModule = await Test.createTestingModule({
             providers: [
+                Logger,
                 MemberService,
                 {
                     provide: MemberRepository,
@@ -24,19 +27,22 @@ describe('MemberController', () => {
         }).compile();
 
         memberController = memberModule.get<MemberController>(MemberController);
-        memberRepository = memberModule.get<MemberRepository>(MemberRepository);
         memberService = memberModule.get<MemberService>(MemberService);
     });
 
     describe('login', () => {
         it('should succeed', () => {
-            jest.spyOn(memberService, 'login').mockImplementation(() => true);
-            expect(memberController.login(new LoginDto('john@example.net', 'password123'))).toBe(true);
+            const member = new Member();
+            member.email = new Email('john@example.net');
+            jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(member));
+
+            expect(memberController.login(new LoginDto('john@example.net', 'password123'))).toStrictEqual(Promise.resolve(member));
         });
 
         it('should fail', () => {
-            jest.spyOn(memberService, 'login').mockImplementation(() => false);
-            expect(memberController.login(new LoginDto('john@example.net', 'password1234'))).toBe(false);
+            jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(undefined));
+
+            expect(memberController.login(new LoginDto('john@example.net', 'password123'))).toStrictEqual(Promise.resolve(undefined));
         });
     });
 });

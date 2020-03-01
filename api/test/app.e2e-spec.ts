@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import * as request from 'supertest';
+import request from 'supertest';
 import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
@@ -15,18 +15,24 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/ (GET)', () => {
+    it('/ (GET)', (done) => {
         return request(app.getHttpServer())
             .get('/')
             .expect(200)
-            .expect('');
+            .expect('')
+            .end(done);
     });
 
-    it('/login (POST)', () => {
+    it('/login (POST)', (done) => {
         return request(app.getHttpServer())
             .post('/login')
             .send({email: 'john@test.com', password: '123'})
             .set('Accept', 'application/json')
-            .expect(201);
+            .expect(201)
+            .end(done);
+    });
+
+    afterAll(async () => {
+        await app.close();
     });
 });

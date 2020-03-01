@@ -13,7 +13,7 @@
     "test": "jest --config jest.config.json",
     "test:watch": "jest --config jest.config.json --watch",
     "test:cov": "jest --config jest.config.json --coverage",
-    "test:e2e": "jest --config test/jest-e2e.config.json"
+    "test:e2e": "jest --config test/jest-e2e.config.json --forceExit --detectOpenHandles"
   },
   "repository": "github:krevindiou/bn",
   "author": "Arnaud B",
