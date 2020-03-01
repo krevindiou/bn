@@ -1,11 +1,11 @@
 import { Logger } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
+import { LoginDto } from './login.dto';
 import { MemberController } from './member.controller';
-import { MemberService } from './member.service';
 import { MemberRepository } from './member.repository';
+import { MemberService } from './member.service';
 import { Email } from './model/email';
 import { Member } from './model/member';
-import { LoginDto } from './login.dto';
 
 describe('MemberController', () => {
     let memberController: MemberController;
@@ -19,7 +19,7 @@ describe('MemberController', () => {
                 {
                     provide: MemberRepository,
                     useFactory: () => ({
-                        findByCredentials: jest.fn(() => { throw new Error })
+                        findByCredentials: jest.fn(() => { throw new Error(); }),
                     }),
                 },
             ],
@@ -36,13 +36,15 @@ describe('MemberController', () => {
             member.email = new Email('john@example.net');
             jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(member));
 
-            expect(memberController.login(new LoginDto('john@example.net', 'password123'))).toStrictEqual(Promise.resolve(member));
+            expect(memberController.login(new LoginDto('john@example.net', 'password123')))
+                .toStrictEqual(Promise.resolve(member));
         });
 
         it('should fail', () => {
             jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(undefined));
 
-            expect(memberController.login(new LoginDto('john@example.net', 'password123'))).toStrictEqual(Promise.resolve(undefined));
+            expect(memberController.login(new LoginDto('john@example.net', 'password123')))
+                .toStrictEqual(Promise.resolve(undefined));
         });
     });
 });

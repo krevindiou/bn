@@ -1,5 +1,5 @@
-import { LoginDto } from './login.dto';
 import { validateSync } from 'class-validator';
+import { LoginDto } from './login.dto';
 
 describe('LoginDto', () => {
     it('should succeed', () => {

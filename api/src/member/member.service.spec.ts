@@ -5,8 +5,8 @@ import { MemberRepository } from './member.repository';
 import { MemberService } from './member.service';
 import { Credentials } from './model/credentials';
 import { Email } from './model/email';
-import { Password } from './model/password';
 import { Member } from './model/member';
+import { Password } from './model/password';
 
 describe('MemberService', () => {
     let memberRepository: MemberRepository;
@@ -20,7 +20,7 @@ describe('MemberService', () => {
                 {
                     provide: MemberRepository,
                     useFactory: () => ({
-                        findByCredentials: jest.fn(() => { throw new Error })
+                        findByCredentials: jest.fn(() => { throw new Error(); }),
                     }),
                 },
             ],
