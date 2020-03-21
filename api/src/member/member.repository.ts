@@ -32,10 +32,12 @@ export class MemberRepository {
     }
 
     public async getAll(): Promise<Member[]> {
-        const members = await this.db.member.find({}, {
+        let members = await this.db.member.find({}, {
             order: [{ field: 'name', direction: 'ASC' }],
         });
 
-        return plainToClass(Member, camelcaseKeys(members, { deep: true }));
+        members = plainToClass(Member, camelcaseKeys(members, { deep: true }));
+
+        return members;
     }
 }
