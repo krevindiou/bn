@@ -19,7 +19,9 @@ describe('MemberController', () => {
                 {
                     provide: MemberRepository,
                     useFactory: (): object => ({
-                        findByCredentials: jest.fn(() => { throw new Error(); }),
+                        findByCredentials: jest.fn(() => {
+                            throw new Error();
+                        }),
                     }),
                 },
             ],
@@ -36,15 +38,17 @@ describe('MemberController', () => {
             member.email = new Email('john@example.net');
             jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(member));
 
-            expect(memberController.login(new LoginDto('john@example.net', 'password123')))
-                .toStrictEqual(Promise.resolve(member));
+            expect(
+                memberController.login(new LoginDto('john@example.net', 'password123')),
+            ).toStrictEqual(Promise.resolve(member));
         });
 
         it('should fail', () => {
             jest.spyOn(memberService, 'login').mockImplementation(() => Promise.resolve(undefined));
 
-            expect(memberController.login(new LoginDto('john@example.net', 'password123')))
-                .toStrictEqual(Promise.resolve(undefined));
+            expect(
+                memberController.login(new LoginDto('john@example.net', 'password123')),
+            ).toStrictEqual(Promise.resolve(undefined));
         });
     });
 });

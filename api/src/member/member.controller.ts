@@ -10,17 +10,12 @@ import { Password } from './model/password';
 @ApiTags('member')
 @Controller()
 export class MemberController {
-    constructor(
-        private readonly memberService: MemberService,
-    ) {}
+    constructor(private readonly memberService: MemberService) {}
 
     @Post('/login')
     public async login(@Body() loginDto: LoginDto): Promise<Member | undefined> {
         return this.memberService.login(
-            new Credentials(
-                new Email(loginDto.email),
-                new Password(loginDto.password),
-            ),
+            new Credentials(new Email(loginDto.email), new Password(loginDto.password)),
         );
     }
 

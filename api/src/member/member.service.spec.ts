@@ -20,7 +20,9 @@ describe('MemberService', () => {
                 {
                     provide: MemberRepository,
                     useFactory: (): object => ({
-                        findByCredentials: jest.fn(() => { throw new Error(); }),
+                        findByCredentials: jest.fn(() => {
+                            throw new Error();
+                        }),
                     }),
                 },
             ],
@@ -35,9 +37,14 @@ describe('MemberService', () => {
         it('should succeed', () => {
             const member = new Member();
             member.email = new Email('john@example.net');
-            jest.spyOn(memberRepository, 'findByCredentials').mockImplementation(() => Promise.resolve(member));
+            jest.spyOn(memberRepository, 'findByCredentials').mockImplementation(() =>
+                Promise.resolve(member),
+            );
 
-            const credentials = new Credentials(new Email('john@example.net'), new Password('password123'));
+            const credentials = new Credentials(
+                new Email('john@example.net'),
+                new Password('password123'),
+            );
             expect(memberService.login(credentials)).toStrictEqual(Promise.resolve(member));
         });
 
@@ -46,7 +53,10 @@ describe('MemberService', () => {
                 throw new Error('Member not found');
             });
 
-            const credentials = new Credentials(new Email('john@example.net'), new Password('password123'));
+            const credentials = new Credentials(
+                new Email('john@example.net'),
+                new Password('password123'),
+            );
             expect(memberService.login(credentials)).toStrictEqual(Promise.resolve(undefined));
         });
     });

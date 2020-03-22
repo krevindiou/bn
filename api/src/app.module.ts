@@ -6,17 +6,14 @@ import { MemberModule } from './member/member.module';
 @Module({
     controllers: [AppController],
     imports: [
-        MassiveModule.register(
-            {
-                user: 'bn',
-                password: '5Kn317rj1RJrVDaV',
-                host: 'postgresql',
-                port: 5432,
-                database: 'bn',
-            },
-        ),
+        MassiveModule.register({
+            user: 'bn',
+            password: '5Kn317rj1RJrVDaV',
+            host: 'postgresql',
+            port: 5432,
+            database: 'bn',
+        }),
         MemberModule,
     ],
 })
-
 export class AppModule {}
