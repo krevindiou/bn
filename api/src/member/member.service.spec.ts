@@ -19,7 +19,7 @@ describe('MemberService', () => {
                 MemberService,
                 {
                     provide: MemberRepository,
-                    useFactory: () => ({
+                    useFactory: (): object => ({
                         findByCredentials: jest.fn(() => { throw new Error(); }),
                     }),
                 },

@@ -15,13 +15,14 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/login (POST)', (done) => {
-        return request(app.getHttpServer())
-            .post('/login')
-            .send({email: 'john@test.com', password: '123'})
-            .set('Accept', 'application/json')
-            .expect(201)
-            .end(done);
+    it('/login (POST)', () => {
+        return new Promise((done) => {
+            return request(app.getHttpServer())
+                .post('/login')
+                .send({email: 'john@test.com', password: '123'})
+                .set('Accept', 'application/json')
+                .expect(201, done);
+        })
     });
 
     afterAll(async () => {

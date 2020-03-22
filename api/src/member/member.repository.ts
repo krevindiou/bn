@@ -8,7 +8,7 @@ import { Member } from './model/member';
 
 @Injectable()
 export class MemberRepository {
-    constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
+    constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {} // eslint-disable-line @typescript-eslint/no-explicit-any
 
     public async findByCredentials(credentials: Credentials): Promise<Member> {
         const hashedPassword = crypto
@@ -19,7 +19,7 @@ export class MemberRepository {
         let member = await this.db.member.findOne({
             email: credentials.email.value,
             password: hashedPassword,
-            deleted_at: null,
+            deleted_at: null, // eslint-disable-line @typescript-eslint/camelcase
         });
 
         if (member === null) {
