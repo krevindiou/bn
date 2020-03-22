@@ -15,10 +15,10 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/login (POST)', () => {
+    it('/members/login (POST)', () => {
         return new Promise((done) => {
             return request(app.getHttpServer())
-                .post('/login')
+                .post('/members/login')
                 .send({ email: 'john@test.com', password: '123' })
                 .set('Accept', 'application/json')
                 .expect(201, done);
