@@ -15,14 +15,6 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/ (GET)', (done) => {
-        return request(app.getHttpServer())
-            .get('/')
-            .expect(200)
-            .expect('')
-            .end(done);
-    });
-
     it('/login (POST)', (done) => {
         return request(app.getHttpServer())
             .post('/login')
