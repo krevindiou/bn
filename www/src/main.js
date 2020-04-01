@@ -3,6 +3,7 @@ import VueSession from 'vue-session';
 import VueSpinner from 'vue-simple-spinner';
 import VTooltip from 'v-tooltip';
 import VueMoment from 'vue-moment';
+import VueCookies from 'vue-cookies'
 import moment from 'moment';
 import axios from 'axios';
 import App from './views/App.vue';
@@ -29,6 +30,13 @@ Vue.use(VTooltip, {
 Vue.use(VueMoment, {
     moment,
 });
+
+Vue.use(VueCookies);
+
+const accessToken = Vue.$cookies.get('accessToken');
+if (accessToken) {
+    axios.defaults.headers.common = { Authorization: `Bearer ${accessToken}` };
+}
 
 Vue.component('vue-simple-spinner', VueSpinner);
 

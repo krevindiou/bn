@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MassiveModule } from '@nestjsplus/massive';
-import { AppController } from './app.controller';
-import { MemberModule } from './member/member.module';
+import AppController from './app.controller';
+import AuthModule from './auth/auth.module';
+import MemberModule from './member/member.module';
 
 @Module({
     controllers: [AppController],
@@ -13,7 +14,8 @@ import { MemberModule } from './member/member.module';
             port: 5432,
             database: 'bn',
         }),
+        AuthModule,
         MemberModule,
     ],
 })
-export class AppModule {}
+export default class AppModule {}

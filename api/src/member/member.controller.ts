@@ -1,50 +1,25 @@
-import { Body, Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Request, Controller, Get, UseGuards, NotFoundException } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { LoginDto } from './login.dto';
-import { MemberService } from './member.service';
-import { Credentials } from './model/credentials';
-import { Email } from './model/email';
+import express from 'express';
+import MemberService from './member.service';
 import { Member } from './model/member';
-import { Password } from './model/password';
+import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('members')
 @Controller('members')
-export class MemberController {
+export default class MemberController {
     constructor(private readonly memberService: MemberService) {}
 
-    @ApiOperation({ summary: 'Connect a member' })
-    @Post('/login')
-    public async login(@Body() loginDto: LoginDto): Promise<Member | undefined> {
-        return this.memberService.login(
-            new Credentials(new Email(loginDto.email), new Password(loginDto.password)),
-        );
-    }
-
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Get connected member' })
-    @Get('/me')
-    public async getMe(): Promise<Member> {
-        return new Member();
-    }
+    @Get('me')
+    async getMe(@Request() req: express.Request): Promise<Member> {
+        const { memberId } = req.user as Member;
 
-    @ApiOperation({ summary: 'Update connected member' })
-    @Put('/me')
-    public async updateMe(): Promise<Member> {
-        return new Member();
-    }
-
-    @ApiOperation({ summary: 'Delete connected member' })
-    @Delete('/me')
-    public async removeMe(): Promise<void> {}
-
-    @ApiOperation({ summary: 'Register a member' })
-    @Post()
-    public async register(): Promise<Member> {
-        return new Member();
-    }
-
-    @ApiOperation({ summary: 'Get the list of members' })
-    @Get()
-    public async list(): Promise<Member[]> {
-        return this.memberService.getAll();
+        try {
+            return this.memberService.get(memberId);
+        } catch (_error) {
+            throw new NotFoundException();
+        }
     }
 }

@@ -39,6 +39,7 @@ export default {
     methods: {
         async logout() {
             try {
+                $cookies.remove('accessToken');
                 this.$session.destroy();
                 this.$router.push('/login');
             } catch (error) {

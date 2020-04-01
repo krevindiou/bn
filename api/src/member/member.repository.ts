@@ -3,32 +3,38 @@ import { MASSIVE_CONNECTION } from '@nestjsplus/massive';
 import camelcaseKeys from 'camelcase-keys';
 import { plainToClass } from 'class-transformer';
 import * as crypto from 'crypto';
-import { Credentials } from './model/credentials';
 import { Member } from './model/member';
 
 @Injectable()
-export class MemberRepository {
-    constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {} // eslint-disable-line @typescript-eslint/no-explicit-any
+export default class MemberRepository {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
 
-    public async findByCredentials(credentials: Credentials): Promise<Member> {
+    async findByCredentials(email: string, password: string): Promise<Member | null> {
         const hashedPassword = crypto
             .createHash('md5')
-            .update(credentials.password.value)
+            .update(password)
             .digest('hex');
 
-        let member = await this.db.member.findOne({
-            email: credentials.email.value,
+        const result = await this.db.member.findOne({
+            email,
             password: hashedPassword,
             deleted_at: null, // eslint-disable-line @typescript-eslint/camelcase
         });
-
-        if (member === null) {
-            throw new Error('Member not found');
+        if (result === null) {
+            return null;
         }
 
-        member = plainToClass(Member, camelcaseKeys(member));
+        return plainToClass(Member, camelcaseKeys(result));
+    }
 
-        return member;
+    async findById(id: string): Promise<Member | null> {
+        const result = await this.db.member.findOne({member_id: id}); // eslint-disable-line @typescript-eslint/camelcase
+        if (result === null) {
+            return null;
+        }
+
+        return plainToClass(Member, camelcaseKeys(result));
     }
 
     public async getAll(): Promise<Member[]> {

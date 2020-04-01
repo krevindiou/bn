@@ -47,12 +47,13 @@ export default {
     methods: {
         async login() {
             try {
-                const response = await axios.post('/members/login', {
-                    email: this.email,
+                const response = await axios.post('/auth/login', {
+                    username: this.email,
                     password: this.password,
                 });
 
-                this.$session.set('member', response.data);
+                this.$cookies.set('accessToken', response.data.accessToken, '7d', '/', '', false, 'Strict');
+                this.$session.set('member', {});
                 this.$router.push('/');
             } catch (error) {
                 console.log(error.response);

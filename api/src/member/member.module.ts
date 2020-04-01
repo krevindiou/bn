@@ -1,12 +1,12 @@
-import { Logger, Module } from '@nestjs/common';
-import { MemberController } from './member.controller';
-import { MemberRepository } from './member.repository';
-import { MemberService } from './member.service';
+import { Module } from '@nestjs/common';
+import MemberController from './member.controller';
+import MemberRepository from './member.repository';
+import MemberService from './member.service';
 
 @Module({
-    providers: [Logger, MemberService, MemberRepository],
+    providers: [MemberService, MemberRepository],
     controllers: [MemberController],
     imports: [],
-    exports: [Logger, MemberService],
+    exports: [MemberService, MemberRepository],
 })
-export class MemberModule {}
+export default class MemberModule {}

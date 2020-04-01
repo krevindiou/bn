@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
-import { AppModule } from './../src/app.module';
+import AppModule from '../src/app.module';
 
 describe('AppController (e2e)', () => {
     let app: INestApplication;
@@ -18,8 +18,8 @@ describe('AppController (e2e)', () => {
     it('/members/login (POST)', () => {
         return new Promise((done) => {
             return request(app.getHttpServer())
-                .post('/members/login')
-                .send({ email: 'john@test.com', password: '123' })
+                .post('/auth/login')
+                .send({ username: 'john@test.com', password: '123' })
                 .set('Accept', 'application/json')
                 .expect(201, done);
         });
