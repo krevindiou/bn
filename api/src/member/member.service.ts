@@ -6,9 +6,7 @@ import UpdateMemberDto from './dto/update-member.dto';
 
 @Injectable()
 export default class MemberService {
-    constructor(
-        private readonly memberRepository: MemberRepository,
-    ) {}
+    constructor(private readonly memberRepository: MemberRepository) {}
 
     async get(id: string): Promise<Member> {
         const member = await this.memberRepository.findById(id);

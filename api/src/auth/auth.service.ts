@@ -7,8 +7,8 @@ import MemberRepository from '../member/member.repository';
 export default class AuthService {
     constructor(
         private readonly memberRepository: MemberRepository,
-        private readonly jwtService: JwtService
-    ) { }
+        private readonly jwtService: JwtService,
+    ) {}
 
     async login(email: string, password: string): Promise<Member | null> {
         return this.memberRepository.findByCredentials(email, password);

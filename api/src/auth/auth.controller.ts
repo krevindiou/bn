@@ -16,7 +16,7 @@ export default class AuthController {
     @Post('login')
     async login(@Request() req: express.Request, @Body() _dto: LoginDto): Promise<object> {
         return {
-            accessToken: await this.authService.getToken(req.user as Member)
+            accessToken: await this.authService.getToken(req.user as Member),
         };
     }
 }

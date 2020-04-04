@@ -20,7 +20,7 @@ import MemberModule from '../member/member.module';
                 secret: configService.get<string>('JWT_SECRET_KEY'),
                 signOptions: { expiresIn: '7d' },
             }),
-            inject: [ConfigService]
+            inject: [ConfigService],
         }),
     ],
     providers: [AuthService, LocalStrategy, JwtStrategy],

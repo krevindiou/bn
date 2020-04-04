@@ -13,10 +13,7 @@ async function bootstrap(): Promise<void> {
         }),
     );
 
-    const options = new DocumentBuilder()
-        .setTitle('BN API')
-        .setVersion('0.0')
-        .build();
+    const options = new DocumentBuilder().setTitle('BN API').setVersion('0.0').build();
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('specs', app, document);
 

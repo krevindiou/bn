@@ -1,4 +1,13 @@
-import { Request, Body, Controller, Get, Post, Put, UseGuards, NotFoundException } from '@nestjs/common';
+import {
+    Request,
+    Body,
+    Controller,
+    Get,
+    Post,
+    Put,
+    UseGuards,
+    NotFoundException,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import express from 'express';
 import MemberService from './member.service';

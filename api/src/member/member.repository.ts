@@ -11,10 +11,7 @@ export default class MemberRepository {
     constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
 
     async findByCredentials(email: string, password: string): Promise<Member | null> {
-        const hashedPassword = crypto
-            .createHash('md5')
-            .update(password)
-            .digest('hex');
+        const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
 
         const result = await this.db.member.findOne({
             email,
@@ -29,7 +26,7 @@ export default class MemberRepository {
     }
 
     async findById(id: string): Promise<Member | null> {
-        const result = await this.db.member.findOne({member_id: id}); // eslint-disable-line @typescript-eslint/camelcase
+        const result = await this.db.member.findOne({ member_id: id }); // eslint-disable-line @typescript-eslint/camelcase
         if (result === null) {
             return null;
         }
@@ -38,7 +35,8 @@ export default class MemberRepository {
     }
 
     async findAll(): Promise<Member[]> {
-        const results: Record<string, any>[] = await this.db.member.find( // eslint-disable-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const results: Record<string, any>[] = await this.db.member.find(
             {},
             {
                 order: [{ field: 'name', direction: 'ASC' }],
