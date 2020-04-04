@@ -22,4 +22,10 @@ export default class MemberController {
             throw new NotFoundException();
         }
     }
+
+    @ApiOperation({ summary: 'Get the list of members' })
+    @Get()
+    async list(): Promise<Member[]> {
+        return this.memberService.getAll();
+    }
 }

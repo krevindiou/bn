@@ -17,7 +17,7 @@ export default class MemberService {
         return member;
     }
 
-    public async getAll(): Promise<Member[]> {
-        return this.memberRepository.getAll();
+    async getAll(): Promise<Member[]> {
+        return this.memberRepository.findAll();
     }
 }
