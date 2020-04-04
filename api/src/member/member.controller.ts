@@ -1,8 +1,9 @@
-import { Request, Controller, Get, UseGuards, NotFoundException } from '@nestjs/common';
+import { Request, Body, Controller, Get, Put, UseGuards, NotFoundException } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import express from 'express';
 import MemberService from './member.service';
 import { Member } from './model/member';
+import UpdateMemberDto from './dto/update-member.dto';
 import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('members')
@@ -27,5 +28,14 @@ export default class MemberController {
     @Get()
     async list(): Promise<Member[]> {
         return this.memberService.getAll();
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiOperation({ summary: 'Update connected member' })
+    @Put('me')
+    async updateMe(@Request() req: express.Request, @Body() dto: UpdateMemberDto): Promise<Member> {
+        const { memberId } = req.user as Member;
+
+        return this.memberService.update(memberId, dto);
     }
 }

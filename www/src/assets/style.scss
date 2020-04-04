@@ -107,3 +107,20 @@ h1 {
 h1 svg {
     margin-right: 5px;
 }
+
+form {
+    .form-field, .form-button {
+        margin: 15px;
+
+        label {
+            display: block;
+        }
+
+        input {
+            padding: 5px 5px;
+            border: 1px solid #eee;
+            border-radius: 3px;
+            width: 300px;
+        }
+    }
+}

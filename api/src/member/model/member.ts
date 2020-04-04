@@ -1,5 +1,6 @@
 import { Exclude, Type } from 'class-transformer';
 import { IsEnum } from 'class-validator';
+import UpdateMemberDto from '../dto/update-member.dto';
 
 export enum Role {
     User = 'user',
@@ -34,4 +35,14 @@ export class Member {
 
     @Type(() => Date)
     public deletedAt!: Date;
+}
+
+export function updateMemberFromDto(member: Member, dto: UpdateMemberDto): Member {
+    member.name = dto.name;
+    member.email = dto.email;
+    member.picture = dto.picture;
+    member.website = dto.website;
+    member.quote = dto.quote;
+
+    return member;
 }

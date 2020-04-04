@@ -47,4 +47,8 @@ export default class MemberRepository {
 
         return plainToClass(Member, camelcaseKeys(results, { deep: true }));
     }
+
+    async update(member: Member): Promise<Member> {
+        return this.db.member.update(member.memberId, member);
+    }
 }

@@ -53,6 +53,7 @@ export default {
                 });
 
                 this.$cookies.set('accessToken', response.data.accessToken, '7d', '/', '', false, 'Strict');
+                axios.defaults.headers.common = { Authorization: `Bearer ${response.data.accessToken}` };
                 this.$session.set('member', {});
                 this.$router.push('/');
             } catch (error) {
