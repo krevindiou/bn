@@ -1,6 +1,8 @@
 import { Exclude, Type } from 'class-transformer';
 import { IsEnum } from 'class-validator';
+import CreateMemberDto from '../dto/create-member.dto';
 import UpdateMemberDto from '../dto/update-member.dto';
+import * as crypto from 'crypto';
 
 export enum Role {
     User = 'user',
@@ -35,6 +37,15 @@ export class Member {
 
     @Type(() => Date)
     public deletedAt!: Date;
+}
+
+export function createMemberFromDto(dto: CreateMemberDto): Member {
+    const member = new Member();
+    member.name = dto.name;
+    member.email = dto.email;
+    member.password = crypto.createHash('md5').update(dto.password).digest('hex');
+
+    return member;
 }
 
 export function updateMemberFromDto(member: Member, dto: UpdateMemberDto): Member {

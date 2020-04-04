@@ -1,8 +1,9 @@
-import { Request, Body, Controller, Get, Put, UseGuards, NotFoundException } from '@nestjs/common';
+import { Request, Body, Controller, Get, Post, Put, UseGuards, NotFoundException } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import express from 'express';
 import MemberService from './member.service';
 import { Member } from './model/member';
+import CreateMemberDto from './dto/create-member.dto';
 import UpdateMemberDto from './dto/update-member.dto';
 import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 
@@ -28,6 +29,12 @@ export default class MemberController {
     @Get()
     async list(): Promise<Member[]> {
         return this.memberService.getAll();
+    }
+
+    @ApiOperation({ summary: 'Register a member' })
+    @Post()
+    async register(@Body() dto: CreateMemberDto): Promise<Member> {
+        return this.memberService.register(dto);
     }
 
     @UseGuards(JwtAuthGuard)

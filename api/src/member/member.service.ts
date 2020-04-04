@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import MemberRepository from './member.repository';
-import { Member, updateMemberFromDto } from './model/member';
+import { Member, createMemberFromDto, updateMemberFromDto } from './model/member';
+import CreateMemberDto from './dto/create-member.dto';
 import UpdateMemberDto from './dto/update-member.dto';
 
 @Injectable()
@@ -20,6 +21,10 @@ export default class MemberService {
 
     async getAll(): Promise<Member[]> {
         return this.memberRepository.findAll();
+    }
+
+    async register(dto: CreateMemberDto): Promise<Member> {
+        return this.memberRepository.add(createMemberFromDto(dto));
     }
 
     async update(id: string, dto: UpdateMemberDto): Promise<Member> {
