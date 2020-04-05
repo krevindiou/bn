@@ -5,6 +5,7 @@ import MemberRepository from '../member/member.repository';
 
 @Injectable()
 export default class AuthService {
+    // eslint-disable-next-line no-useless-constructor
     constructor(
         private readonly memberRepository: MemberRepository,
         private readonly jwtService: JwtService,

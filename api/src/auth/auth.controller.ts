@@ -9,6 +9,7 @@ import { Member } from '../member/model/member';
 @ApiTags('auth')
 @Controller('auth')
 export default class AuthController {
+    // eslint-disable-next-line no-useless-constructor
     constructor(private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)

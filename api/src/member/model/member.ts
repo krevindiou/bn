@@ -1,8 +1,8 @@
 import { Exclude, Type } from 'class-transformer';
 import { IsEnum } from 'class-validator';
+import * as crypto from 'crypto';
 import CreateMemberDto from '../dto/create-member.dto';
 import UpdateMemberDto from '../dto/update-member.dto';
-import * as crypto from 'crypto';
 
 export enum Role {
     User = 'user',
@@ -49,11 +49,12 @@ export function createMemberFromDto(dto: CreateMemberDto): Member {
 }
 
 export function updateMemberFromDto(member: Member, dto: UpdateMemberDto): Member {
-    member.name = dto.name;
-    member.email = dto.email;
-    member.picture = dto.picture;
-    member.website = dto.website;
-    member.quote = dto.quote;
+    const updatedMember = member;
+    updatedMember.name = dto.name;
+    updatedMember.email = dto.email;
+    updatedMember.picture = dto.picture;
+    updatedMember.website = dto.website;
+    updatedMember.quote = dto.quote;
 
-    return member;
+    return updatedMember;
 }

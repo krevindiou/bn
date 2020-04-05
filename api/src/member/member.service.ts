@@ -6,6 +6,7 @@ import UpdateMemberDto from './dto/update-member.dto';
 
 @Injectable()
 export default class MemberService {
+    // eslint-disable-next-line no-useless-constructor
     constructor(private readonly memberRepository: MemberRepository) {}
 
     async get(id: string): Promise<Member> {

@@ -19,6 +19,7 @@ import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 @ApiTags('members')
 @Controller('members')
 export default class MemberController {
+    // eslint-disable-next-line no-useless-constructor
     constructor(private readonly memberService: MemberService) {}
 
     @UseGuards(JwtAuthGuard)

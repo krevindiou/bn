@@ -7,7 +7,7 @@ import { Member } from './model/member';
 
 @Injectable()
 export default class MemberRepository {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-useless-constructor
     constructor(@Inject(MASSIVE_CONNECTION) private readonly db: any) {}
 
     async findByCredentials(email: string, password: string): Promise<Member | null> {

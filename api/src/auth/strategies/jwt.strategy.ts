@@ -13,6 +13,7 @@ export default class JwtStrategy extends PassportStrategy(Strategy) {
         });
     }
 
+    // eslint-disable-next-line class-methods-use-this
     async validate(payload: { sub: string; email: string }): Promise<object> {
         return { memberId: payload.sub, email: payload.email };
     }
