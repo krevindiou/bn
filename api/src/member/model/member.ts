@@ -29,12 +29,15 @@ export class Member {
     @IsEnum(Role)
     public role!: Role;
 
+    @Exclude()
     @Type(() => Date)
     public createdAt!: Date;
 
+    @Exclude()
     @Type(() => Date)
     public updatedAt!: Date;
 
+    @Exclude()
     @Type(() => Date)
     public deletedAt!: Date;
 }
