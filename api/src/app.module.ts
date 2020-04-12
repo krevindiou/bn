@@ -1,18 +1,20 @@
 import { Module } from '@nestjs/common';
-import { MassiveModule } from '@nestjsplus/massive';
+import { MassiveModule, MassiveConnectOptions } from '@nestjsplus/massive';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import AppController from './app.controller';
 import AuthModule from './auth/auth.module';
 import MemberModule from './member/member.module';
+import DatabaseConfig from './config/database.config';
 
 @Module({
     controllers: [AppController],
     imports: [
-        MassiveModule.register({
-            user: 'bn',
-            password: '5Kn317rj1RJrVDaV',
-            host: 'postgresql',
-            port: 5432,
-            database: 'bn',
+        ConfigModule.forRoot(),
+        MassiveModule.registerAsync({
+            imports: [ConfigModule.forFeature(DatabaseConfig)],
+            useFactory: async (config: ConfigType<typeof DatabaseConfig>) =>
+                config as MassiveConnectOptions,
+            inject: [DatabaseConfig.KEY],
         }),
         AuthModule,
         MemberModule,
