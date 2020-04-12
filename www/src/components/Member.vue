@@ -93,6 +93,7 @@ dd {
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
         text-align: center;
         transform: rotate(45deg);
+        text-transform: capitalize;
     }
 
     &.admin {
