@@ -15,7 +15,7 @@ describe('AppController (e2e)', () => {
         await app.init();
     });
 
-    it('/members/login (POST)', () => {
+    it('/auth/login (POST)', () => {
         return new Promise((done) => {
             return request(app.getHttpServer())
                 .post('/auth/login')
