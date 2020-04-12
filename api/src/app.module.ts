@@ -13,11 +13,11 @@ import DatabaseConfig from './config/database.config';
         ConfigModule.forRoot({
             validationSchema: Joi.object({
                 JWT_SECRET_KEY: Joi.string().required(),
-                DATABASE_USER: Joi.string().required(),
-                DATABASE_PASSWORD: Joi.string().required(),
-                DATABASE_HOST: Joi.string().required(),
-                DATABASE_PORT: Joi.number().default(5432),
-                DATABASE_NAME: Joi.string().required(),
+                POSTGRES_USER: Joi.string().required(),
+                POSTGRES_PASSWORD: Joi.string().required(),
+                POSTGRES_HOST: Joi.string().required(),
+                POSTGRES_PORT: Joi.number().default(5432),
+                POSTGRES_DB: Joi.string().required(),
             }),
         }),
         MassiveModule.registerAsync({

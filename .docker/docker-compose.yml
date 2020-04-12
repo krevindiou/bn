@@ -6,10 +6,8 @@ services:
         build:
             context: ../api
             dockerfile: ../.docker/db/Dockerfile
-        environment:
-            POSTGRES_DB: bn
-            POSTGRES_USER: bn
-            POSTGRES_PASSWORD: 5Kn317rj1RJrVDaV
+        env_file:
+            - ../api/.env
         volumes:
             - ./db/tmp:/var/lib/postgresql/data
     api-node:
