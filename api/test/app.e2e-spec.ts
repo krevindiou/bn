@@ -16,13 +16,11 @@ describe('AppController (e2e)', () => {
     });
 
     it('/auth/login (POST)', () => {
-        return new Promise((done) => {
-            return request(app.getHttpServer())
-                .post('/auth/login')
-                .send({ username: 'john@test.com', password: '123' })
-                .set('Accept', 'application/json')
-                .expect(201, done);
-        });
+        return request(app.getHttpServer())
+            .post('/auth/login')
+            .send({ username: 'john@example.net', password: '123' })
+            .set('Accept', 'application/json')
+            .expect(401);
     });
 
     afterAll(async () => {
