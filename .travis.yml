@@ -1,6 +1,15 @@
 services:
   - docker
 install:
+  - |
+    cat > api/.env << EOF
+    JWT_SECRET_KEY=Ta68WQx3SZw8XV4fL7hBLimRFKecC4pW
+    POSTGRES_USER=bn
+    POSTGRES_PASSWORD=AxeJmYU2bJ7Tyu67
+    POSTGRES_HOST=postgresql
+    POSTGRES_PORT=5432
+    POSTGRES_DB=bn
+    EOF
   - make docker-up
   - make docker-exec CONTAINER="api-node" COMMAND="npm install -g codecov"
   - make docker-exec CONTAINER="api-node" COMMAND="sh -c 'apk update && apk add bash curl'"
