@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { MassiveModule, MassiveConnectOptions } from '@nestjsplus/massive';
-import { ConfigModule, ConfigType } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigType } from '@nestjs/config';
+import { MassiveConnectOptions, MassiveModule } from '@nestjsplus/massive';
+
 import AppController from './app.controller';
 import AuthModule from './auth/auth.module';
-import MemberModule from './member/member.module';
 import DatabaseConfig from './config/database.config';
+import MemberModule from './member/member.module';
 
 @Module({
     controllers: [AppController],

@@ -8,6 +8,7 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
         "@typescript-eslint",
+        "simple-import-sort",
         "jest"
     ],
     "extends": [
@@ -30,7 +31,8 @@
                 "ts": "never",
                 "tsx": "never"
             }
-        ]
+        ],
+        "simple-import-sort/sort": "error"
     },
     "settings": {
         "import/resolver": {

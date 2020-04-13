@@ -3,6 +3,7 @@ import { MASSIVE_CONNECTION } from '@nestjsplus/massive';
 import camelcaseKeys from 'camelcase-keys';
 import { plainToClass } from 'class-transformer';
 import * as crypto from 'crypto';
+
 import { Member } from './model/member';
 
 @Injectable()

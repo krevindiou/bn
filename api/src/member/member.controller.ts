@@ -1,20 +1,21 @@
 import {
-    Request,
     Body,
     Controller,
     Get,
+    NotFoundException,
     Post,
     Put,
+    Request,
     UseGuards,
-    NotFoundException,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import express from 'express';
-import MemberService from './member.service';
-import { Member } from './model/member';
+
+import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
 import CreateMemberDto from './dto/create-member.dto';
 import UpdateMemberDto from './dto/update-member.dto';
-import JwtAuthGuard from '../auth/guards/jwt-auth.guard';
+import MemberService from './member.service';
+import { Member } from './model/member';
 
 @ApiTags('members')
 @Controller('members')

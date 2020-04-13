@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import MemberRepository from './member.repository';
-import { Member, createMemberFromDto, updateMemberFromDto } from './model/member';
+
 import CreateMemberDto from './dto/create-member.dto';
 import UpdateMemberDto from './dto/update-member.dto';
+import MemberRepository from './member.repository';
+import { createMemberFromDto, Member, updateMemberFromDto } from './model/member';
 
 @Injectable()
 export default class MemberService {

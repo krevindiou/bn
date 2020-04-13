@@ -1,6 +1,7 @@
 import { Exclude, Type } from 'class-transformer';
 import { IsEnum } from 'class-validator';
 import * as crypto from 'crypto';
+
 import CreateMemberDto from '../dto/create-member.dto';
 import UpdateMemberDto from '../dto/update-member.dto';
 
