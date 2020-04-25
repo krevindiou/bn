@@ -1,9 +1,16 @@
-FROM node:12.16-alpine
+FROM node:12.16-alpine AS dev
 WORKDIR /opt/bn
-COPY package*.json ./
+COPY www/package*.json ./
 RUN npm install
-COPY . .
+COPY www ./
+
+FROM dev AS build
+WORKDIR /opt/bn
 RUN npm run build
-EXPOSE 8080
-RUN npm install -g http-server
-CMD [ "http-server", "dist" ]
+RUN npm prune --prod
+
+FROM nginx:1.17-alpine
+COPY .docker/www/nginx.conf /etc/nginx/nginx.conf
+WORKDIR /usr/share/nginx/html
+COPY --from=build /opt/bn/dist ./
+USER nginx

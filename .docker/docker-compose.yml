@@ -1,11 +1,11 @@
-version: "3"
+version: '3.4'
 services:
     postgresql:
         image: bn-postgresql
         container_name: bn-postgresql
         build:
-            context: ../api
-            dockerfile: ../.docker/db/Dockerfile
+            context: ..
+            dockerfile: .docker/db/Dockerfile
         env_file:
             - ../api/.env
         volumes:
@@ -14,33 +14,25 @@ services:
         image: bn-api-node
         container_name: bn-api-node
         build:
-            context: ../api
-            dockerfile: ../.docker/api/Dockerfile
-        volumes:
-            - ../api:/opt/bn
-            - /opt/bn/node_modules/
+            context: ..
+            dockerfile: .docker/api/node.Dockerfile
         links:
             - postgresql
-        command: npm run start:dev
     api-nginx:
-        image: nginx:1-alpine
+        image: bn-api-nginx
         container_name: bn-api-nginx
-        volumes:
-            - ./api/nginx.conf:/etc/nginx/conf.d/default.conf
+        build:
+            context: ..
+            dockerfile: .docker/api/nginx.Dockerfile
+        ports:
+            - 8080:8080
         links:
             - api-node
-        ports:
-            - 8080:80
     www:
         image: bn-www
         container_name: bn-www
         build:
-            context: ../www
-            dockerfile: ../.docker/www/Dockerfile
-        volumes:
-            - ./www/nginx.conf:/etc/nginx/conf.d/default.conf
-            - ../www:/opt/bn
-            - /opt/bn/node_modules/
+            context: ..
+            dockerfile: .docker/www/Dockerfile
         ports:
             - 80:8080
-        command: npm run serve

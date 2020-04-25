@@ -2,10 +2,12 @@
 SHELL:=/bin/bash
 
 PROJECT_NAME=$(shell basename $(CURDIR))
+DOCKER_ENV?=dev
 DOCKER_COMPOSE_DIR=./.docker
 DOCKER_COMPOSE_FILE=$(DOCKER_COMPOSE_DIR)/docker-compose.yml
-DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-name $(PROJECT_NAME) --project-directory $(DOCKER_COMPOSE_DIR)
-COMMAND=/bin/bash
+DOCKER_COMPOSE_FILE_ENV=$(DOCKER_COMPOSE_DIR)/docker-compose.$(DOCKER_ENV).yml
+DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) -f $(DOCKER_COMPOSE_FILE_ENV) --project-name $(PROJECT_NAME) --project-directory $(DOCKER_COMPOSE_DIR)
+COMMAND=/bin/sh
 
 .PHONY: help
 help:
